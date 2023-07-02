@@ -1,0 +1,111 @@
+package com.insta.entity;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import com.insta.dto.UserDTO;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+
+public class Comment {
+
+	@Id
+
+	private Integer id;
+
+	private String content;
+
+	private LocalDateTime createdAt;
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "id", column = @Column(columnDefinition = "user_id")),
+			@AttributeOverride(name = "email", column = @Column(columnDefinition = "user_email")) })
+	private UserDTO userDTO;
+
+	@Embedded
+	@ElementCollection
+	@JoinTable(name = "likedByUsers", joinColumns = @JoinColumn(columnDefinition = "user_id"))
+	private Set<UserDTO> likedByUsers = new HashSet<>();
+
+	public Comment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Comment(Integer id, String content, LocalDateTime createdAt, UserDTO userDTO, Set<UserDTO> likedByUsers) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.createdAt = createdAt;
+		this.userDTO = userDTO;
+		this.likedByUsers = likedByUsers;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public UserDTO getUserDTO() {
+		return userDTO;
+	}
+
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
+	}
+
+	public Set<UserDTO> getLikedByUsers() {
+		return likedByUsers;
+	}
+
+	public void setLikedByUsers(Set<UserDTO> likedByUsers) {
+		this.likedByUsers = likedByUsers;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(content, createdAt, id, likedByUsers, userDTO);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comment other = (Comment) obj;
+		return Objects.equals(content, other.content) && Objects.equals(createdAt, other.createdAt)
+				&& Objects.equals(id, other.id) && Objects.equals(likedByUsers, other.likedByUsers)
+				&& Objects.equals(userDTO, other.userDTO);
+	}
+
+}

@@ -1,0 +1,154 @@
+package com.insta.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.insta.dto.UserDTO;
+import com.insta.entity.User;
+import com.insta.repo.UserRepository;
+import com.insta.util.UserException;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public User registerUser(UserDTO user) throws UserException {
+
+		Optional<User> isEmailExist = userRepository.findByEmail(user.getEmail());
+		if (isEmailExist.isPresent()) {
+			throw new UserException("Email is Already Exist");
+		}
+		Optional<User> isUsernameExist = userRepository.findByUsername(user.getUsername());
+		if (isUsernameExist.isPresent()) {
+			throw new UserException("Username is Already Taken");
+		}
+		if (user.getEmail() == null || user.getPassword() == null || user.getMobile() == null) {
+			throw new UserException("Please provide all details");
+
+		}
+		User us = new User();
+		us.setEmail(user.getEmail());
+		us.setGender(user.getGender());
+		us.setMobile(user.getMobile());
+		us.setPassword(user.getPassword());
+
+		us.setUsername(user.getUsername());
+
+		return userRepository.save(us);
+
+	}
+
+	@Override
+	public User findUserById(Integer id) throws UserException {
+
+		Optional<User> userExist = userRepository.findById(id);
+		if (userExist.isPresent()) {
+			return userExist.get();
+		}
+		throw new UserException("NO User Found with the ID : " + id);
+
+	}
+
+	@Override
+	public User findUserByProfile(String token) throws UserException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByUsername(String username) throws UserException {
+		Optional<User> userExist = userRepository.findByUsername(username);
+		if (userExist.isPresent()) {
+			return userExist.get();
+		}
+		throw new UserException("NO User Found with the ID : " + username);
+
+	}
+
+	@Override
+	public String followUser(Integer reqUserId, Integer followUserId) throws UserException {
+
+		User reqUser = findUserById(reqUserId);
+		User followUser = findUserById(followUserId);
+
+		UserDTO follower = new UserDTO();
+		follower.setEmail(reqUser.getEmail());
+		follower.setMobile(reqUser.getMobile());
+		follower.setPassword(reqUser.getPassword());
+		follower.setUsername(reqUser.getUsername());
+
+		UserDTO following = new UserDTO();
+		following.setEmail(follower.getEmail());
+		following.setMobile(follower.getMobile());
+		following.setPassword(follower.getPassword());
+		following.setUsername(follower.getUsername());
+
+		reqUser.getFollowing().add(following);
+		followUser.getFollowers().add(follower);
+		userRepository.save(followUser);
+		userRepository.save(reqUser);
+
+		return "YOU ARE FOLLOWING " + followUser.getUsername();
+
+	}
+
+	@Override
+	public String unfollowUser(Integer reqUserId, Integer followUserId) throws UserException {
+		User reqUser = findUserById(reqUserId);
+		User followUser = findUserById(followUserId);
+
+		UserDTO follower = new UserDTO();
+		follower.setEmail(reqUser.getEmail());
+		follower.setMobile(reqUser.getMobile());
+		follower.setPassword(reqUser.getPassword());
+		follower.setUsername(reqUser.getUsername());
+
+		UserDTO following = new UserDTO();
+		following.setEmail(follower.getEmail());
+		following.setMobile(follower.getMobile());
+		following.setPassword(follower.getPassword());
+		following.setUsername(follower.getUsername());
+
+		reqUser.getFollowing().remove(following);
+		followUser.getFollowers().remove(follower);
+		userRepository.save(followUser);
+		userRepository.save(reqUser);
+
+		return "YOU ARE NOT FOLLOWING " + followUser.getUsername();
+
+	}
+
+	@Override
+	public List<User> findUserByIds(List<Integer> userIds) throws UserException {
+
+		List<User> users=userRepository.findAll();
+		
+		return users;
+		
+		
+		
+	}
+
+	@Override
+	public User updateUserDetails(User updateUser, User existingUser) throws UserException {
+
+
+		if(updateUser.getEmail()!=null) {
+			existingUser.setEmail(updateUser.getEmail());
+		}
+		
+		if(updateUser.getBio()!=null) {
+			existingUser.setBio(updateUser.getBio());
+		}
+		
+		 userRepository.save(existingUser);
+	return  userRepository.save(updateUser);
+	}
+
+}

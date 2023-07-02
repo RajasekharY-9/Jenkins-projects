@@ -1,0 +1,18 @@
+package com.infyme.account.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.infyme.account.entity.BankAccountEntity;
+import com.infyme.account.entity.DigitalBankAccountEntity;
+
+public interface DigitalBankAccountRepository extends JpaRepository<DigitalBankAccountEntity, String> {
+
+	List<BankAccountEntity> findByMobileNo(Long mobileNo);
+
+	Optional<BankAccountEntity> findByAccountNo(Long accountNo);
+
+	//public 
+}

@@ -1,0 +1,11 @@
+package com.infyme.account.service;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BankAccountServiceImpl implements BankAccountService{
+
+	public static final Log LOGGER = LogFactory.getLog(BankAccountServiceImpl.class);
+}

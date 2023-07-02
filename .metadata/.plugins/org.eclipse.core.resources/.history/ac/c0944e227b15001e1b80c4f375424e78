@@ -1,0 +1,63 @@
+package com.infyme.account.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infyme.account.entity.BankAccountEntity;
+import com.infyme.account.entity.DigitalBankAccountEntity;
+import com.infyme.account.repository.AccountRepository;
+import com.infyme.account.repository.DigitalBankAccountRepository;
+import com.infyme.account.utility.InfyMeMobileException;
+
+@Service
+public class DigitalBankAccountServiceImpl implements DigitalBankAccountService {
+	public static final Log LOGGER = LogFactory.getLog(DigitalBankAccountServiceImpl.class);
+
+	@Autowired
+	private DigitalBankAccountRepository digitalBankAccountRepository;
+	
+	
+	@Override
+	public String linkAccount(Long mobileNo, Long accountNo) throws InfyMeMobileException {
+		
+		List<BankAccountEntity> accounts=digitalBankAccountRepository.findByMobileNo(mobileNo);
+		
+		if(accounts.isEmpty()) {
+			throw new InfyMeMobileException("NO_ACCOUNTS_FOUND");
+		}
+		
+	  Optional<BankAccountEntity> acc=digitalBankAccountRepository.findByAccountNo(accountNo);
+		
+		if(acc.isEmpty()) {
+			throw new InfyMeMobileException("NO_ACCOUNTS_FOUND");
+		}
+		BankAccountEntity be=acc.get();
+		
+		DigitalBankAccountEntity db=new DigitalBankAccountEntity();
+		db.setMobileNumber(mobileNo);
+		db.setAccountNumber(accountNo);
+		db.setDigitalBankingId(db.getDigitalBankingId());
+		digitalBankAccountRepository.save(db);
+		
+		
+		
+		return "Linked Successfully";
+	}
+
+	@Override
+	public String linkAccount(Long mobileNo, Long accountNo, Integer OTP) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double checkBalance(Long mobileNo, Long accountNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

@@ -1,0 +1,12 @@
+package com.infyme.account.service;
+
+import java.util.List;
+
+import com.infyme.account.entity.dto.AccountDTO;
+import com.infyme.account.entity.dto.BankAccountDTO;
+
+public interface BankAccountService {
+	
+
+	public List<BankAccountDTO> listAccounts(Long mobileNo);
+}

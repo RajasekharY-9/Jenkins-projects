@@ -1,0 +1,9 @@
+package com.infyme.account.service;
+
+public interface DigitalBankAccountService {
+	public String linkAccount(Long mobileNo, 
+			Long accountNo);
+	public String linkAccount(Long mobileNo, 
+			Long accountNo, Integer 
+			OTP);
+}

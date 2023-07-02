@@ -1,0 +1,9 @@
+package com.infyme.account.utility;
+
+public class InfyMeMobileException {
+
+	public InfyMeMobileException() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

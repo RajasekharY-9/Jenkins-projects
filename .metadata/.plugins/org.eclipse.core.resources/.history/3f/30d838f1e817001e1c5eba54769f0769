@@ -1,0 +1,13 @@
+package com.cab.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cab.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+
+	
+	public String findByName(String name);
+	
+	public String findByPhoneNo(Long phoneNo);
+}

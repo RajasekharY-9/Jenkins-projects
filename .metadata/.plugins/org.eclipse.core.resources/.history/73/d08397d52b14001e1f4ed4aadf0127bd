@@ -1,0 +1,5 @@
+package com.infymemobileuser.utility;
+
+public class InfyMeMobileException {
+
+}

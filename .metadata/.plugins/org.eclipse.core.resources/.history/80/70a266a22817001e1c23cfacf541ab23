@@ -1,0 +1,43 @@
+package com.insta.entity;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.insta.dto.UserDTO;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="posts")
+public class Post {
+
+	
+	private Integer id;
+	
+	private String caption;
+	
+	private String location;
+	
+	private String image;
+	
+	private LocalDateTime createdAt;
+	@Embedded
+	 @AttributeOverrides({
+	       @AttributeOverride(name="id", column=@Column("user_id")),
+	       @AttributeOverride(name="email", column=@Column("user_email"))
+	   })
+	private UserDTO userDTO;
+	
+	private List<Comment> comments=new ArrayList<>();
+	
+	
+	
+	
+	
+}

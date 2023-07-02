@@ -1,0 +1,17 @@
+package com.cab.repo;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.cab.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+
+	
+	public Optional<Employee> findByName(String name);
+	
+	@Query("SELECT c.phoneNo from Employee c where c.phoneNo=?phoneNo")
+	public Optional<Employee> findByPhoneNo(Long phoneNo);
+}

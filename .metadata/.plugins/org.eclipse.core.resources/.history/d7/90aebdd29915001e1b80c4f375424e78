@@ -1,0 +1,109 @@
+package com.infyme.account.controller;
+
+import java.util.List;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.infyme.account.entity.dto.AccountDTO;
+import com.infyme.account.entity.dto.BankAccountDTO;
+import com.infyme.account.entity.dto.TransactionDTO;
+import com.infyme.account.service.AccountService;
+import com.infyme.account.service.BankAccountService;
+import com.infyme.account.service.DigitalBankAccountService;
+import com.infyme.account.service.TransactionService;
+import com.infyme.account.utility.InfyMeMobileException;
+
+import jakarta.validation.Valid;
+
+@RestController
+@CrossOrigin
+@Validated
+public class AccountApi {
+	
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+	private Environment environment;
+	
+
+	@Autowired
+	private BankAccountService bankAccountService;
+	
+	@Autowired
+	private DigitalBankAccountService digitalBankAccountService;
+	
+	@Autowired
+	private TransactionService transactionService;
+	
+	public static final Log LOGGER = LogFactory.getLog(AccountApi.class);
+
+	//http://localhost:8080/accounts
+	@PostMapping(value = "/accounts")
+	public ResponseEntity<String> createAccount( @RequestBody AccountDTO accountDTO) throws InfyMeMobileException{
+		
+		
+		return new ResponseEntity<>(accountService.createAccount(accountDTO),HttpStatus.CREATED);
+
+	}
+    //http://localhost:8080/accounts/mobileNo
+	@GetMapping(value = "accounts/{mobileNo}")
+	public ResponseEntity<List<BankAccountDTO>> listAccounts(@PathVariable Long mobileNo) throws InfyMeMobileException{
+		
+		return new ResponseEntity<>(bankAccountService.listAccounts(mobileNo),HttpStatus.OK);
+
+	}
+
+	//http://localhost:8080/accounts/mobileNo
+	@PostMapping("/accounts/mobileNo")
+	public ResponseEntity<String> linkAccount(@PathVariable Long mobileNo,@Valid @RequestBody Long accountNo) throws InfyMeMobileException{
+		
+		return new ResponseEntity<>(digitalBankAccountService.linkAccount(mobileNo, accountNo),HttpStatus.OK);
+
+	}
+
+	//http://localhost:8080/accounts/
+	@PostMapping("/accounts/{mobileNo}")
+	public ResponseEntity<String> linkAccount(@PathVariable Long mobileNo,@Valid @RequestBody Long accountNo,
+			@RequestBody Integer otp) throws InfyMeMobileException{
+		return new ResponseEntity<>(digitalBankAccountService.linkAccount(mobileNo, accountNo, otp),HttpStatus.OK);
+
+	}
+
+	//http://localhost:8080/accounts/balance/
+	@GetMapping("/accounts/balance/{mobileNo}/")
+	public ResponseEntity<Double> checkBalance(@PathVariable Long mobileNo,
+			@RequestParam("accountNo") @PathVariable Long accountNo) throws InfyMeMobileException{
+		return new ResponseEntity<>(digitalBankAccountService.checkBalance(mobileNo, accountNo),HttpStatus.OK);
+
+	}
+
+	//http://localhost:8080/accounts/fundtransfer
+	@PutMapping("/accounts/fundtransfer")
+	public ResponseEntity<String> fundTransfer(@Valid @RequestBody TransactionDTO transactionDTO) throws InfyMeMobileException{
+		// Logic to perform fund transfer
+		return new ResponseEntity<>(transactionService.fundTransfer(transactionDTO),HttpStatus.OK);
+	}
+
+	//http://localhost:8080/accounts/statement/
+	@GetMapping("/accounts/statement/{mobileNo}")
+	public ResponseEntity<List<TransactionDTO>> accountStatement(@PathVariable Long mobileNo) throws InfyMeMobileException{
+		// Logic to retrieve account statement for the given mobile number
+		return new ResponseEntity<>(transactionService.accountStatement(mobileNo),HttpStatus.OK);
+	}
+
+}

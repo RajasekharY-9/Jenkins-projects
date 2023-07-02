@@ -1,0 +1,21 @@
+package com.infyme.account.service;
+
+import java.util.List;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.stereotype.Service;
+
+import com.infyme.account.entity.dto.BankAccountDTO;
+
+@Service
+public class BankAccountServiceImpl implements BankAccountService{
+
+	public static final Log LOGGER = LogFactory.getLog(BankAccountServiceImpl.class);
+
+	@Override
+	public List<BankAccountDTO> listAccounts(Long mobileNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

@@ -1,0 +1,5 @@
+package com.infyme.account.repository;
+
+public class DigitalBankAccountEntity {
+
+}

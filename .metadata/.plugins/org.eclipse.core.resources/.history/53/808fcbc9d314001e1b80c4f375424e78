@@ -1,0 +1,99 @@
+package com.infymemobileuser.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infymemobileuser.controller.UserApi;
+import com.infymemobileuser.dto.LoginDTO;
+import com.infymemobileuser.dto.UserDTO;
+import com.infymemobileuser.entity.Login;
+import com.infymemobileuser.entity.UserEntity;
+import com.infymemobileuser.repository.LoginRepository;
+import com.infymemobileuser.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private LoginRepository loginRepository;
+	
+	public static final Log LOGGER = LogFactory.getLog(UserService.class);
+
+	@Override
+	public String createUser(UserDTO userDTO) throws InfyMeMobileException{
+		// TODO Auto-generated method stub
+       
+		
+		
+		UserEntity user=new UserEntity();
+		user.setAccountHolderName(userDTO.getAccountHolderName());
+		user.setCommunicationAddress(userDTO.getCommunicationAddress());
+		user.setDateOfBirth(userDTO.getDateOfBirth());
+		user.setEmail(userDTO.getEmail());
+		user.setGender(userDTO.getGender());
+		user.setMobileNumber(userDTO.getMobileNumber());
+		user.setPAN(userDTO.getPAN());
+		user.setPassword(userDTO.getPassword());
+		user.setUserId(userDTO.getUserId());
+		Optional<UserEntity> u2=userRepository.findById(userDTO.getMobileNumber());
+		if(u2.isEmpty()) {
+			throw new InfyMeMobileException("User is Present");
+		}
+		
+	UserEntity u=	userRepository.save(user);
+		
+		
+		return ""+u.getMobileNumber();
+	}
+
+	@Override
+	public boolean loginUser(LoginDTO loginDTO) throws InfyMeMobileException {
+		// TODO Auto-generated method stub
+		Optional<Login> lg=loginRepository.findById(loginDTO.getMobileNumber());
+	     System.out.println(lg);
+		if(lg.isPresent()) {
+			
+				loginDTO.getPassword().equals(lg.get().getPassword());
+			return true;
+			
+		}
+		else {
+			throw new InfyMeMobileException("AUTHENTICATION_FAILED");
+		}
+	}
+
+	@Override
+	public UserDTO getUserProfile(String userId) {
+
+         Optional<UserEntity> os=userRepository.findByuserId(userId);
+		
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<UserDTO> showAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	private boolean isUserAlreadyPresent(UserDTO userDTO) {
+		if(userDTO.getUserId().)
+		
+		return false;
+        // Check if user is already present in the repository
+        // Return true if user is already present, false otherwise
+    }
+	
+	
+	
+}

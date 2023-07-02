@@ -1,0 +1,5 @@
+package com.insta.util;
+
+public class ExceptionHandler {
+
+}

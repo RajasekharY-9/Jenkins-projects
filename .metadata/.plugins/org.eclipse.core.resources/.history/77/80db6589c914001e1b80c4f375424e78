@@ -1,0 +1,5 @@
+package com.infymemobileuser.dto;
+
+public class LoginDTO {
+
+}

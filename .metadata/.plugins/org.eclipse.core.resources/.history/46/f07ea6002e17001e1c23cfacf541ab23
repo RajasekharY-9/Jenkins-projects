@@ -1,0 +1,28 @@
+package com.insta.util;
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+
+@RestControllerAdvice
+public class ExceptionHandler {
+
+	@ExceptionHandlerClass
+	public ResponseEntity<ErrorInfo> UserException(UserException ue, WebRequest wr) {
+		ErrorInfo er = new ErrorInfo(ue.getMessage(), wr.getDescription(false), LocalDateTime.now());
+
+		return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+
+	}
+	public ResponseEntity<ErrorInfo> Exception(UserException ue, WebRequest wr) {
+		ErrorInfo er = new ErrorInfo(ue.getMessage(), wr.getDescription(false), LocalDateTime.now());
+
+		return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+
+	}
+
+}

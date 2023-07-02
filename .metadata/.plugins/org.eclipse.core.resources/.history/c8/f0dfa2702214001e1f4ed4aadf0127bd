@@ -1,0 +1,5 @@
+package com.infyme.account.service;
+
+public class TransactionServiceImpl implements TransactionService{
+
+}

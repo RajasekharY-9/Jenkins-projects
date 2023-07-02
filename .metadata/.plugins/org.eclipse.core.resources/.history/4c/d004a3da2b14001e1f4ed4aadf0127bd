@@ -1,0 +1,9 @@
+package com.infymemobileuser.utility;
+
+public class InfyMeMobileException extends Exception{
+
+	public InfyMeMobileException() {
+		
+	}
+	
+}

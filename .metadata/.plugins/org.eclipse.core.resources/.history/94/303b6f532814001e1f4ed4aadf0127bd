@@ -1,0 +1,5 @@
+package com.infyme.account.entity.dto;
+
+public class BankAccountDTO {
+
+}

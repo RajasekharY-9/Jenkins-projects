@@ -1,0 +1,114 @@
+package com.cab.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cab.dto.EmployeeDTO;
+import com.cab.entity.Employee;
+import com.cab.exception.EmployeeException;
+import com.cab.repo.EmployeeRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class EmployeeServiceImpl implements EmployeeService{
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	
+	@Override
+	public Integer getEmployee(Integer id) throws EmployeeException {
+
+ Optional<Employee> isExist=employeeRepository.findById(id);
+ 
+ Employee employee=isExist.orElseThrow(()-> new EmployeeException("EMP_NOT_EXISTS"));
+		
+	EmployeeDTO emp=new EmployeeDTO();
+	
+	emp.setId(employee.getId());
+	emp.setName(employee.getName());
+	emp.setPhoneNo(employee.getPhoneNo());
+	emp.setCompany(employee.getCompany());
+	emp.setSalary(employee.getSalary());
+
+		return emp.getId();
+	}
+
+	@Override
+	public List<EmployeeDTO> getAllEmployees() throws EmployeeException {
+
+		List<Employee> employees=employeeRepository.findAll();
+		
+		List<EmployeeDTO> list=new ArrayList<>();
+		
+		employees.forEach(emp->{
+			
+			EmployeeDTO employee=new EmployeeDTO();
+			
+			employee.setId(emp.getId());
+			employee.setName(emp.getName());
+			employee.setPhoneNo(emp.getPhoneNo());
+			employee.setCompany(emp.getCompany());
+			employee.setSalary(emp.getSalary());
+			
+			list.add(employee);	
+		});
+		if(list.isEmpty()) {
+		throw	new EmployeeException("NO_EMPS_FOUND");
+		}
+
+		return list;
+	}
+
+	@Override
+	public void addEmployee(EmployeeDTO empdto) throws EmployeeException {
+
+		Optional<Employee> isExist=employeeRepository.findById(empdto.getId());
+		Employee
+
+		
+		
+	}
+
+	@Override
+	public void deleteEmployee(Integer id) throws EmployeeException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Employee getByName(String name) throws EmployeeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Employee getByPhoneNumber(Long phoneNo) throws EmployeeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Employee getEmployee2(Integer id) throws EmployeeException {
+
+		Optional<Employee> isExist=employeeRepository.findById(id);
+		 
+		 Employee employee=isExist.orElseThrow(()-> new EmployeeException("EMP_NOT_EXISTS"));
+				
+			EmployeeDTO emp=new EmployeeDTO();
+			
+			emp.setId(employee.getId());
+			emp.setName(employee.getName());
+			emp.setPhoneNo(employee.getPhoneNo());
+			emp.setCompany(employee.getCompany());
+			emp.setSalary(employee.getSalary());
+		return employee;
+	}
+
+}

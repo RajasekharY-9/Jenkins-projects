@@ -1,0 +1,9 @@
+package com.infyme.account.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.infyme.account.entity.BankAccountEntity;
+
+public interface AccountRepository extends JpaRepository<BankAccountEntity, Long> {
+
+}

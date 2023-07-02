@@ -1,0 +1,5 @@
+package com.insta.entity;
+
+public class User {
+
+}

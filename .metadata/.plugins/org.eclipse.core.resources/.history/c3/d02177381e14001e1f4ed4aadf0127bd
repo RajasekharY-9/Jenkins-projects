@@ -1,0 +1,13 @@
+package com.infyme.account.controller;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin
+public class AccountApi {
+	public static final Log LOGGER = LogFactory.getLog(AccountApi.class);
+	
+}

@@ -1,0 +1,5 @@
+package com.infyme.account.utility;
+
+public class InfyMeMobileGlobalExceptionHandler {
+
+}

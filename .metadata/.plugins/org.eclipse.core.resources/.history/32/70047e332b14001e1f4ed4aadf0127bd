@@ -1,0 +1,13 @@
+package com.infyme;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class InfymemobileAccountApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(InfymemobileAccountApplication.class, args);
+	}
+
+}

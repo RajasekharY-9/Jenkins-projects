@@ -1,0 +1,126 @@
+package com.infymemobileuser.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.infymemobileuser.dto.LoginDTO;
+import com.infymemobileuser.dto.UserDTO;
+import com.infymemobileuser.entity.Login;
+import com.infymemobileuser.entity.UserEntity;
+import com.infymemobileuser.repository.LoginRepository;
+import com.infymemobileuser.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private LoginRepository loginRepository;
+
+	public static final Log LOGGER = LogFactory.getLog(UserService.class);
+
+	@Override
+	public String createUser(UserDTO userDTO) throws InfyMeMobileException {
+		// TODO Auto-generated method stub
+     String userId=userDTO.getUserId();
+     Optional<UserEntity> existUser = userRepository.findByUserId(userId);
+		if (existUser.isPresent()) {
+			throw new InfyMeMobileException("User with User Id Already Present");
+		}
+		
+		UserEntity user = new UserEntity();
+		user.setAccountHolderName(userDTO.getAccountHolderName());
+		user.setCommunicationAddress(userDTO.getCommunicationAddress());
+		user.setDateOfBirth(userDTO.getDateOfBirth());
+		user.setEmail(userDTO.getEmail());
+		user.setGender(userDTO.getGender());
+		user.setMobileNumber(userDTO.getMobileNumber());
+		user.setPAN(userDTO.getPAN());
+		user.setPassword(userDTO.getPassword());
+		user.setUserId(userDTO.getUserId());
+		
+
+		UserEntity saved = userRepository.save(user);
+         System.out.println("exception in create user");
+		return ""+saved.getMobileNumber();
+	}
+
+	@Override
+	public boolean loginUser(LoginDTO loginDTO) throws InfyMeMobileException {
+		// TODO Auto-generated method stub
+		Long mobileNumber=loginDTO.getMobileNumber();
+		  Optional<UserEntity> existUser = userRepository.findById(mobileNumber);
+		if(existUser.isPresent()) {
+			UserEntity us=existUser.get();
+			String password=loginDTO.getPassword();
+			String storedpass=us.getPassword();
+			if(password.equals(storedpass)) {
+				return true;
+			}
+		}
+		throw new InfyMeMobileException("Authentication Failed.");
+		
+		
+	}
+
+	@Override
+	public UserDTO getUserProfile(String userId) throws InfyMeMobileException {
+
+		Optional<UserEntity> os = userRepository.findByUserId(userId);
+		if (os.isPresent()) {
+			UserEntity usentity=os.get();
+			UserDTO us = new UserDTO();
+			us.setUserId(usentity.getUserId());
+			us.setAccountHolderName(usentity.getAccountHolderName());
+			us.setCommunicationAddress(usentity.getCommunicationAddress());
+			us.setDateOfBirth(usentity.getDateOfBirth());
+			us.setEmail(usentity.getEmail());
+			us.setGender(usentity.getGender());
+			us.setMobileNumber(usentity.getMobileNumber());
+			us.setPAN(usentity.getPAN());
+			us.setPassword(us.getPassword());
+			
+			return us;
+			
+		} else {
+			throw new InfyMeMobileException("USERID_NOT_FOUND");
+		}
+
+	
+	}
+
+	@Override
+	public List<UserDTO> showAllUsers() throws InfyMeMobileException {
+
+		List<UserEntity> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new InfyMeMobileException("NO_USERS_FOUND");
+        }
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (UserEntity userEntity : users) {
+            UserDTO userDTO = new UserDTO();
+            // Set the values from the UserEntity to the UserDTO
+            userDTO.setMobileNumber(userEntity.getMobileNumber());
+            userDTO.setUserId(userEntity.getUserId());
+            userDTO.setAccountHolderName(userEntity.getAccountHolderName());
+            userDTO.setGender(userEntity.getGender());
+            userDTO.setDateOfBirth(userEntity.getDateOfBirth());
+            userDTO.setPassword(userEntity.getPassword());
+            userDTO.setEmail(userEntity.getEmail());
+            userDTO.setCommunicationAddress(userEntity.getCommunicationAddress());
+            userDTO.setPAN(userEntity.getPAN());
+            userDTOs.add(userDTO);
+        }
+        return userDTOs;
+	}
+
+}

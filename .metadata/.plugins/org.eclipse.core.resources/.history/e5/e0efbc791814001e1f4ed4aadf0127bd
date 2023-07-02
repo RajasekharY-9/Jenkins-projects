@@ -1,0 +1,5 @@
+package com.infymemobileuser.controller;
+
+public class LoginDTO {
+
+}

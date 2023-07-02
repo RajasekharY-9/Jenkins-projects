@@ -1,0 +1,28 @@
+package com.infyme.account.service;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DigitalBankAccountServiceImpl implements DigitalBankAccountService {
+	public static final Log LOGGER = LogFactory.getLog(DigitalBankAccountServiceImpl.class);
+
+	@Override
+	public String linkAccount(Long mobileNo, Long accountNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String linkAccount(Long mobileNo, Long accountNo, Integer OTP) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double checkBalance(Long mobileNo, Long accountNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

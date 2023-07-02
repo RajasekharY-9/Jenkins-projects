@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;cab-booking-backend&apos; to &apos;employee-crud-app&apos;" description="Rename resource &apos;cab-booking-backend&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/cab-booking-backend" name="employee-crud-app" stamp="1688195016967" updateReferences="true"/>
+</session>

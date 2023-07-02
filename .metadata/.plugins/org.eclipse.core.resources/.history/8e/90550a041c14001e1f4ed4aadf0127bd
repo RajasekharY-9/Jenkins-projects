@@ -1,0 +1,5 @@
+package com.infymemobileuser.entity;
+
+public class UserEntity {
+
+}

@@ -1,0 +1,14 @@
+package com.infyme.account.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import com.infyme.account.entity.BankAccountEntity;
+
+public interface AccountRepository extends JpaRepository<BankAccountEntity, Long> {
+
+	List<BankAccountEntity> findByMobileNo(Long mobileNo);
+
+}

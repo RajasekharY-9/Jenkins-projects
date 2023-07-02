@@ -1,0 +1,19 @@
+package com.infymemobileuser.service;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.stereotype.Service;
+
+import com.infymemobileuser.controller.UserApi;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	
+	
+	public static final Log LOGGER = LogFactory.getLog(UserService.class);
+	
+	
+	
+	
+}

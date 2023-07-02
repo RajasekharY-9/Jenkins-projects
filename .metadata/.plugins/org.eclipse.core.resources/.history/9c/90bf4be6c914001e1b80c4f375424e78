@@ -1,0 +1,5 @@
+package com.infymemobileuser.repository;
+
+public interface LoginRepository {
+
+}

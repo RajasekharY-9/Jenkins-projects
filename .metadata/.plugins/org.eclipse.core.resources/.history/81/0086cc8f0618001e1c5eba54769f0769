@@ -1,0 +1,27 @@
+server.port=8089
+
+API_SUCCESS=New Employee Added Successfully
+
+employee.id.notpresent=Provide Employee Id
+employee.name.notpresent=Provide employee name
+employee.name.invalid=Provide Valid name
+employee.company.notpresent=Provide Company name
+employee.company.invalid=Provide Valid Company name
+
+employee.phoneno.notpresent=Provide Employee phone number
+employee.phoneno.invalid=Phone number should be 10 digits
+
+employee.salary.notpresent=Provide Employee Salary 
+
+SEVICE_EMP_NOT_EXISTS=Employee not found
+
+SEVICE_NO_EMPS_FOUND=No Employees found
+
+SEVICE_ALREADY_EXISTS=Employee Already exist
+
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+package com.infyme.account.entity.dto;
+
+public class BankAccountDTO {
+    @NotNull(message = "Account number cannot be null")
+    @Size(min = 7, message = "Account number should have a minimum length of 7")
+    private Long accountNumber;
+
+ 
+
+    @NotBlank(message = "Bank name cannot be null or blank")
+    @Size(min = 5, max = 15, message = "Bank name should have a minimum length of 5 and maximum length of 15")
+    private String bankName;
+
+ 
+
+    @NotNull(message = "Balance cannot be null")
+    private Double balance;
+
+ 
+
+    @NotBlank(message = "Account type cannot be null or blank")
+    @Size(min = 1, max = 10, message = "Account type should have a minimum length of 1 and maximum length of 10")
+    private String accountType;
+
+ 
+
+    @NotBlank(message = "IFSC code cannot be null or blank")
+    @Size(min = 1, max = 15, message = "IFSC code should have a minimum length of 1 and maximum length of 15")
+    private String ifscCode;
+
+ 
+
+    @NotNull(message = "Opening date cannot be null")
+    private LocalDate openingDate;
+
+ 
+
+    @NotNull(message = "Mobile number cannot be null")
+    @Size(min = 10, max = 10, message = "Mobile number should have a length of 10")
+    private Long mobileNumber;
+
+ 
+
+    // Constructors, getters, and setters
+
+ 
+
+    // Default constructor
+    public BankAccountDTO() {
+    }
+
+ 
+
+    // Parameterized constructor
+    public BankAccountDTO(Long accountNumber, String bankName, Double balance, String accountType, String ifscCode,
+                          LocalDate openingDate, Long mobileNumber) {
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.balance = balance;
+        this.accountType = accountType;
+        this.ifscCode = ifscCode;
+        this.openingDate = openingDate;
+        this.mobileNumber = mobileNumber;
+    }
+
+ 
+
+    // Getters and setters
+
+ 
+
+    public Long getAccountNumber() {
+        return accountNumber;
+    }
+
+ 
+
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+ 
+
+    public String getBankName() {
+        return bankName;
+    }
+
+ 
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+ 
+
+    public Double getBalance() {
+        return balance;
+    }
+
+ 
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+ 
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+ 
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+ 
+
+    public String getIfscCode() {
+        return ifscCode;
+    }
+
+ 
+
+    public void setIfscCode(String ifscCode) {
+        this.ifscCode = ifscCode;
+    }
+
+ 
+
+    public LocalDate getOpeningDate() {
+        return openingDate;
+    }
+
+ 
+
+    public void setOpeningDate(LocalDate openingDate) {
+        this.openingDate = openingDate;
+    }
+
+ 
+
+    public Long getMobileNumber() {
+        return mobileNumber;
+    }
+
+ 
+
+    public void setMobileNumber(Long mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+}

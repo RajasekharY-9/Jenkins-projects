@@ -1,0 +1,158 @@
+package com.infyme.account.controller;
+
+import java.util.List;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.infyme.account.entity.dto.AccountDTO;
+import com.infyme.account.entity.dto.BankAccountDTO;
+import com.infyme.account.entity.dto.TransactionDTO;
+
+@RestController
+@CrossOrigin
+public class AccountApi {
+	public static final Log LOGGER = LogFactory.getLog(AccountApi.class);
+	
+	@PostMapping(value="accounts")
+	public ResponseEntity<String> createAccount (@RequestBody AccountDTO 
+			accountDTO){
+				return null;
+		
+	}
+	@GetMapping(value="accounts/mobileNo")
+	public ResponseEntity
+	<List<BankAccountDTO>> listAccounts(@PathVariable Long mobileNo) {
+		return null;
+		
+	}
+	@PostMapping("/accounts/mobileNo")
+ public ResponseEntity<String> linkAccount(@PathVariable Long mobileNo, 
+		 @RequestBody Long accountNo) {
+			return null;
+	 
+ }
+	
+	@PostMapping("/accounts/{mobileNo}")
+public ResponseEntity<String>	linkAccount(@PathVariable Long mobileNo, 
+		@RequestBody Long accountNo,@RequestBody Integer 
+		otp)
+{
+	return null;
+		
+}
+	@GetMapping("/accounts/balance/{mobileNo}/")
+	public ResponseEntity<Double> checkBalance(@PathVariable Long 
+			mobileNo, @PathVariable Long accountNo){
+				return null;
+		
+	}
+
+    @PutMapping("/fundtransfer")
+    public ResponseEntity fundTransfer(@RequestBody TransactionDTO transactionDTO) {
+        // Logic to perform fund transfer
+        return ResponseEntity.ok().build();
+    }
+
+	
+	
+}
+	@RestController
+	@RequestMapping("/accounts")
+	public class AccountController {
+
+	 
+
+	    @PostMapping
+	    public ResponseEntity createAccount(@RequestBody AccountDTO accountDTO) {
+	        // Logic to create an account
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @GetMapping("/{mobileNo}")
+	    public ResponseEntity listAccounts(@PathVariable Long mobileNo) {
+	        // Logic to retrieve accounts for the given mobile number
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @PostMapping("/{mobileNo}")
+	    public ResponseEntity linkAccount(@PathVariable Long mobileNo, @RequestParam Long accountNo) {
+	        // Logic to link an account to the specified mobile number
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @PostMapping("/{mobileNo}")
+	    public ResponseEntity linkAccount(@PathVariable Long mobileNo, @RequestParam Long accountNo, @RequestParam Integer otp) {
+	        // Logic to link an account to the specified mobile number with OTP verification
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @GetMapping("/balance/{mobileNo}/{accountNo}")
+	    public ResponseEntity checkBalance(@PathVariable Long mobileNo, @PathVariable Long accountNo) {
+	        // Logic to retrieve account balance for the given mobile number and account number
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @PutMapping("/fundtransfer")
+	    public ResponseEntity fundTransfer(@RequestBody TransactionDTO transactionDTO) {
+	        // Logic to perform fund transfer
+	        return ResponseEntity.ok().build();
+	    }
+
+	 
+
+	    @GetMapping("/statement/{mobileNo}")
+	    public ResponseEntity accountStatement(@PathVariable Long mobileNo) {
+	        // Logic to retrieve account statement for the given mobile number
+	        return ResponseEntity.ok().build();
+	    }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

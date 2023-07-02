@@ -1,0 +1,5 @@
+package com.cab.dto;
+
+public class EmployeeDTO {
+
+}
